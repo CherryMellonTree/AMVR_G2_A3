@@ -7,8 +7,8 @@ public class AnaglyphEffect : MonoBehaviour
     public Material material;
     public Camera cam2;
 
-    private RenderTexture rt;
-
+    private RenderTexture rtLeft;
+    private RenderTexture rtRight;
 
     private void OnEnable()
     {
@@ -19,34 +19,37 @@ public class AnaglyphEffect : MonoBehaviour
 
         cam2.enabled = false;
         int w = Screen.width, h = Screen.height;
-        rt = RenderTexture.GetTemporary(w, h, 8, RenderTextureFormat.Default);
-        cam2.targetTexture = rt;
+
+        rtLeft = RenderTexture.GetTemporary(w, h, 8, RenderTextureFormat.Default);
+        rtRight = RenderTexture.GetTemporary(w, h, 8, RenderTextureFormat.Default);
+
+        cam2.targetTexture = rtRight;
 
 
     }
 
     private void OnDisable()
     {
-        if (rt != null) { rt.Release(); }
+        if (rtLeft != null) { rtLeft.Release(); }
+        if (rtRight != null) { rtRight.Release(); }
+
         cam2.targetTexture = null;
         
     }
 
     private void OnRenderImage(RenderTexture source, RenderTexture destination)
-    {
+        {
         if (material == null)
         {
             Graphics.Blit(source, destination);
             return;
         }
 
-
-       
         cam2.Render();
 
-        material.SetTexture("_MainTex2", rt);
+        material.SetTexture("_MainTex", source);
+        material.SetTexture("_MainTex2", rtRight);
+
         Graphics.Blit(source, destination, material);
-
-
     }
 }

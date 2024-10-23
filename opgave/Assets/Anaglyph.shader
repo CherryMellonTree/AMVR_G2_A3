@@ -43,9 +43,10 @@
 
             fixed4 frag (v2f i) : SV_Target
             {
-                fixed4 color = tex2D(_MainTex, i.uv);
-                return color;
- 
+                fixed4 leftColor = tex2D(_MainTex, i.uv);
+                fixed4 rightColor = tex2D(_MainTex2, i.uv);
+                return fixed4(leftColor.r, rightColor.g, rightColor.b, 1.0);
+
             }
             ENDCG
         }
