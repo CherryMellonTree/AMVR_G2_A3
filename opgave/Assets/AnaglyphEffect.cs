@@ -17,10 +17,10 @@ public class AnaglyphEffect : MonoBehaviour
             return;
         }
 
-        //cam2.enabled = false;
+        cam2.enabled = false;
         int w = Screen.width, h = Screen.height;
         rt = RenderTexture.GetTemporary(w, h, 8, RenderTextureFormat.Default);
-        //cam2.targetTexture = rt;
+        cam2.targetTexture = rt;
 
 
     }
@@ -28,7 +28,7 @@ public class AnaglyphEffect : MonoBehaviour
     private void OnDisable()
     {
         if (rt != null) { rt.Release(); }
-        //cam2.targetTexture = null;
+        cam2.targetTexture = null;
         
     }
 
@@ -42,7 +42,7 @@ public class AnaglyphEffect : MonoBehaviour
 
 
        
-        //cam2.Render();
+        cam2.Render();
 
         material.SetTexture("_MainTex2", rt);
         Graphics.Blit(source, destination, material);

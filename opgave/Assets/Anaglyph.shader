@@ -3,7 +3,7 @@
     Properties
     {
         _MainTex ("Texture", 2D) = "white" {}
-        //_MainTex2("2nd Texture", 2D) = "white" {}
+        _MainTex2("2nd Texture", 2D) = "white" {}
     }
     SubShader
     {
@@ -39,7 +39,7 @@
             }
 
             sampler2D _MainTex;
-            //sampler2D _MainTex2;
+            sampler2D _MainTex2;
 
             fixed4 frag (v2f i) : SV_Target
             {
